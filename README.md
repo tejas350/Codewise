@@ -1,88 +1,147 @@
-CodeWise 🧙‍♂️
-CodeWise is an automated code review and analysis tool designed to integrate seamlessly into a development workflow, leveraging the power of OpenAI for insightful and helpful suggestions on GitHub Pull Requests and Issues.
+<div align="center">⚡ CodeWise – AI-Powered Automated Code Review Tool</div>
+<div align="center">
 
-✨ Features
-Automated Code Review: Leverages the OpenAI Service to provide intelligent, context-aware suggestions on Pull Requests.
+A GitHub-integrated automated code review system that uses OpenAI to generate intelligent, context-aware suggestions on Pull Requests and Issues.
 
-Issue Triage: Handles incoming Issues with specific logic (e.g., classifying, summarizing, or suggesting initial steps).
+</div>
+✨ Overview
 
-Pull Request Management: Specialized handlers for Pull Requests and Pull Request Reviews.
+CodeWise is an automated code-review and issue-triage tool designed to enhance software development workflows.
+It integrates with GitHub to analyze Pull Requests, triage Issues, and provide AI-driven feedback using the OpenAI API.
 
-Monorepo Structure (via node_modules): Utilizes standard JavaScript/Node.js dependencies, including:
+CodeWise acts as a lightweight GitHub bot that improves code quality, reduces review workload, and helps teams ship cleaner code.
 
-superagent: For making HTTP requests (e.g., communicating with the GitHub API or OpenAI).
+🚀 Key Features
+✅ AI-Powered Code Review
 
-uuid: For generating unique identifiers.
+Uses OpenAI to generate smart suggestions, refactor hints, and quality insights on Pull Requests.
 
-validator: For data validation.
+✅ Automated Issue Triage
 
-yargs / yargs-parser: For command-line argument parsing (if a CLI tool is part of the project).
+Classifies, summarizes, or prioritizes incoming GitHub Issues.
 
-... and many more utilities for robust development.
+✅ Pull Request & Review Handlers
+
+Specialized logic for PR creation, updates, and reviews.
+
+✅ Modular Architecture
+
+Handlers, services, and utilities are organized under src/ for easy maintenance.
+
+✅ Node.js + GitHub API Integration
+
+Uses libraries like:
+
+superagent — HTTP requests
+
+uuid — unique identifiers
+
+validator — input validation
+
+yargs, yargs-parser — CLI argument parsing
 
 📦 Project Structure
-The core logic of the application resides in the src/ directory.
-
 .
-├── dist/                          # Compiled/built files (e.g., superagent.js, superagent.min.js)
-├── lib/                           # Primary source code files (e.g., client.js, request-base.js)
+├── dist/                          # Compiled/bundled files
+├── lib/                           # Library/build output (from dependencies like superagent)
 ├── node_modules/                  # Project dependencies
-├── src/                           # Core application source code
-│   ├── handlers/                  # Logic for handling specific GitHub webhook events
-│   │   ├── issues.js              # Handles Issue events (e.g., opened, closed)
-│   │   ├── pullRequest.js         # Handles Pull Request events
-│   │   └── pullRequestReview.js   # Handles Pull Request Review events
-│   ├── services/                  # Business logic and external integrations
-│   │   └── openaiService.js       # Interface for communication with OpenAI API
-│   └── index.js                   # Main application entry point
-├── test/                          # Test suite
-│   └── fixtures/                  # Mock data for testing (e.g., issues.opened.json)
-├── HISTORY.md                     # Project change history
-├── LICENSE                        # Project license details
-├── README.md                      # This file
-└── package.json                   # Node.js project manifest and dependency list
-🚀 Getting Started
-Prerequisites
+├── src/
+│   ├── handlers/                  # GitHub webhook event handlers
+│   │   ├── issues.js              # Logic for Issue events
+│   │   ├── pullRequest.js         # Logic for Pull Request events
+│   │   └── pullRequestReview.js   # Logic for Pull Request Review events
+│   ├── services/
+│   │   └── openaiService.js       # Integration with OpenAI API
+│   └── index.js                   # Main entry point
+├── test/
+│   └── fixtures/                  # Sample payloads for testing
+├── HISTORY.md                     # Project changelog
+├── LICENSE                        # License information
+├── README.md                      # Project documentation
+└── package.json                   # Dependencies & scripts
+
+🛠️ Prerequisites
+
+Before running CodeWise, ensure you have:
+
 Node.js (LTS recommended)
 
-A GitHub App or Personal Access Token (PAT) for GitHub API interaction.
+GitHub App or Personal Access Token (PAT)
 
-An OpenAI API Key for the AI service.
+OpenAI API Key
 
-Installation
-Clone the repository:
+Internet access for API communication
 
-Bash
+📥 Installation
+1️⃣ Clone the Repository
+git clone <repository-url>
+cd CodeWise
 
-git clone [repository-url]
-cd codewise
-Install dependencies:
-
-Bash
-
+2️⃣ Install Dependencies
 npm install
-Running the Application
-You typically run an application structured like this through the main entry point (index.js). Since this looks like a backend or service, you'll likely need to set environment variables for configuration.
 
-Set up environment variables (e.g., OPENAI_API_KEY, GITHUB_TOKEN, etc.).
+▶️ Running the Application
+1. Set Required Environment Variables
 
-Start the service (e.g., using node or a process manager like pm2):
+You will need:
 
-Bash
+OPENAI_API_KEY=
+GITHUB_TOKEN=
 
+
+(And any other config used in your handlers/services.)
+
+2. Start the Service
 node src/index.js
+
+
+If using PM2:
+
+pm2 start src/index.js
+
 🧪 Testing
-The project includes a test/ directory with fixtures to ensure the handlers and services function correctly.
 
-Run the tests:
+The project includes mock fixtures for event simulation.
 
-Bash
+Run tests (if configured in package.json):
 
-# Assuming you have a test command defined in package.json, e.g., using 'mocha' or 'jest'
 npm test
-🛠️ Development
-To contribute or extend CodeWise:
 
-OpenAI Service: Modify src/services/openaiService.js to change the prompt, model, or parameters used for the code analysis.
+🛠️ Development Guide
+Modify AI Analysis
 
-Event Handling: Extend the logic within src/handlers/ to handle additional GitHub events or implement more complex workflows.
+Edit the prompts/models in:
+
+src/services/openaiService.js
+
+Add/Modify GitHub Handlers
+
+Extend logic inside:
+
+src/handlers/
+
+Add More Webhook Events
+
+You can add custom handlers for:
+
+push events
+
+comments
+
+labels
+
+merge events
+
+📌 Future Enhancements
+
+Multi-language code review support
+
+GitHub App UI dashboard
+
+AI-generated auto-fix PRs
+
+Fine-tuned models for better PR feedback
+
+📄 License
+
+This project is licensed under the MIT License.
